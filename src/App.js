@@ -6,8 +6,7 @@ import FunComponent from './FunComponent';
 function App() {
   return (
     <div>
-      {/* <ClassComponent /> */}
-      <FunComponent name={2} />
+      <ClassComponent />
     </div>
   )
 }

@@ -1,54 +1,67 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { useRef } from "react";
+import { Component } from "react";
+import FunctionalComponent from "./FunctionalComponent";
 
 export default class ClassComponent extends Component {
+    // static getDerivedStateFromProps(props, state) {
+    //     console.log('getDerivedStateFromProps')
+    // };
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
-            loading: false,
-            item: []
-
+            count: 0,
+            input: '',
         }
+        this.handleClick = this.handleClick.bind(this);
+        this.inputChange = this.inputChange.bind(this);
     }
 
-    componentDidMount() {
-        fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list')
-            .then(res => res.json())
-            .then(result => {
-                this.setState(state => {
-                    return {
-                        error: null,
-                        loading: true,
-                        items: result.drinks,
-                    }
-                })
-            })
-            .catch(rej => {
-                this.setState(state => {
-                    return {
-                        error: true,
-                        loading: true,
-                    }
-                })
-            })
+
+
+    // //mounting
+    // componentDidMount() {
+    //     console.log('componentDidMount')
+    // }
+    // // update
+    // shouldComponentUpdate() {
+    //     console.log('shouldComponentUpdate')
+    //     return true
+    // }
+    // getSnapshotBeforeUpdate() {
+    //     console.log('getSnapshotBeforeUpdate')
+    // }
+    // componentDidUpdate() {
+    //     console.log('componentDidUpdate')
+    // }
+
+    // //unmounting
+    // componentWillUnmount() {
+    //     console.log('componentWillUnmount');
+    // }
+
+    handleClick(event) {
+        event.preventDefault();
+        this.setState(state => {
+            return {
+                count: this.state.input,
+                input: ''
+            }
+        })
+    }
+    inputChange(event) {
+        this.setState(state => { return { input: event.target.value } })
     }
 
     render() {
-        const { error, loading, items } = this.state;
-        if (error) {
-            return <div>
-                <h1>Error</h1>
-            </div>
-        } else if (loading) {
-            return <div>
-                <ul>
-                    {items.map(item => {
-                        return <li key={item.strGlass}>{item.strGlass}</li>
-                    })}
-                </ul>
-            </div>
-        }
+        return <div>
+            <h1>{this.state.count}</h1>
+            <form>
+                <input onChange={this.inputChange} value={this.state.input} />
+                <button onClick={this.handleClick}>Изменить состояние</button>
+            </form>
 
+            <FunctionalComponent name='Vlad'/>
+
+        </div>
     }
 }

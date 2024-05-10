@@ -1,6 +1,6 @@
 import './App.css';
 import ClassComponent from './ClassComponent';
-import FunComponent from './FunComponent';
+import FunctionalComponent from './FunctionalComponent';
 
 
 function App() {
